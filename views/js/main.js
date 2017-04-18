@@ -470,18 +470,29 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // The following code for sliding background pizzas was pulled from Ilya's demo found at:
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
+function getPhases(scroll){
+  var value0 = Math.sin((scroll / 1250) + 0) * 100;
+  var value1 = Math.sin((scroll / 1250) + 1) * 100;
+  var value2 = Math.sin((scroll / 1250) + 2) * 100;
+  var value3 = Math.sin((scroll / 1250) + 3) * 100;
+  var value4 = Math.sin((scroll / 1250) + 4) * 100;
+  return [value0, value1, value2, value3, value4];
+};
+
+
 // Moves the sliding background pizzas based on scroll position
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-
   var items = document.querySelectorAll('.mover');
   var scroll = document.body.scrollTop;
-  console.log(Math.sin((scroll / 1250) + (i % 5)) * 100);
+  var phases = getPhases(scroll);
+  var basicLeft = [0, 256, 512, 768, 1024, 1280, 1536, 1792];
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((scroll / 1250) + (i % 5)) * 100;
-    items[i].style.left = items[i].basicLeft + phase + 'px';
+    var offset = basicLeft[i % 8] + phases[i % 5];
+    items[i].style.left = offset + 'px';
   }
+  console.log(items.length);
 
   // User Timing API to the rescue again. Seriously, it's worth learning.
   // Super easy to create custom metrics.
@@ -501,7 +512,7 @@ window.addEventListener('scroll', requestAnimationFrame(updatePositions));
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 200; i++) {
+  for (var i = 0; i < 32; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";
@@ -511,5 +522,5 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
-  requestAnimationFrame(updatePositions());
+  updatePositions();
 });
