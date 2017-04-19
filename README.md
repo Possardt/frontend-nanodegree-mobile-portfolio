@@ -58,7 +58,7 @@ The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstra
 1. Clone this repository
 1. Navigate to the directory it is cloned to in the command line
 1. For python3+ enter "python -m http.server"
-** for earlier versions enter "python -m SimpleHTTPServer"
+** for earlier versions enter "python -m SimpleHTTPServer" **
 1. Open a browser and navigate to 127.0.0.1:8000
 
 ### Optimizations made
