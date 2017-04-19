@@ -32,7 +32,7 @@ Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
 
 #### Part 2: Optimize Frames per Second in pizza.html
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js. 
+To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
 
 You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
 
@@ -53,3 +53,22 @@ The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstra
 
 * <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
 * <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+
+### Instructions for running the app
+1. Clone this repository
+1. Navigate to the directory it is cloned to in the command line
+1. For python3+ enter "python -m http.server"
+* for earlier versions enter "python -m SimpleHTTPServer"
+1. Open a browser and navigate to 127.0.0.1:8000
+
+### Optimizations made
+#### In index.html
+1. Inlined critical css file
+1. Asynchronously loaded google web font
+1. Turned on async attribute for non critical scripts
+1. Split out print css and called it via media query
+
+#### In view/scripts/main.js
+1. Removed calculations from batch updates of elements, which eliminated FSL
+1. Reduced redundant element creation
+1. Removed redundant function calls
